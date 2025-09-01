@@ -51,6 +51,35 @@ func example() {
   tid, _ = typeid.FromUUID("user", "018e5f71-6f04-7c5c-8123-456789abcdef")
   fmt.Println(tid)
 }
-```
+
+`SqlAlchemy Support`
+The library also allows to create classes specifically for the use with sqlalchemy.
+
+Example
+from typeid import generate
+
+typeids = generate("user")
+
+class User(Base):
+    __tablename__ = "user"
+
+    # use typeids.UserId in the Mapper[]
+    id: Mapped[typeids.UserId] = mapped_column(
+        # use typeids.UserId in the mapped_column!
+        typeids.UserId, primary_key=True, default=uuid.uuid4
+    )
+
+    name: str = Column(String(128), unique=True)
+
+user = User(name="John Doe")
+(db,) = get_session()
+db.add(user)
+db.commit()
+db.refresh(user)
+print(type(user.id))
+# <class 'typeid.UserId'>
+
+print((user.id))
+# user_qvnrsem3skqho2hgni2mfk
 
 For the full documentation, see this package's [godoc](https://pkg.go.dev/go.jetify.com/typeid).
