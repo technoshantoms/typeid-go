@@ -55,11 +55,12 @@ func example() {
 `SqlAlchemy Support`
 The library also allows to create classes specifically for the use with sqlalchemy.
 
-Example
-from typeid import generate
+`Example`
+  from typeid import generate
 
 typeids = generate("user")
 
+```bash
 class User(Base):
     __tablename__ = "user"
 
@@ -80,6 +81,6 @@ print(type(user.id))
 # <class 'typeid.UserId'>
 
 print((user.id))
-# user_qvnrsem3skqho2hgni2mfk
+# user_qvnrsem3skqho2hgni2mfk```
 
 For the full documentation, see this package's [godoc](https://pkg.go.dev/go.jetify.com/typeid).
